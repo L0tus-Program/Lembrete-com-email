@@ -84,7 +84,15 @@ class Application:
         # Iniciando o timer em uma thread separada
        
         t = threading.Thread(target=lambda: self.start())
-        
+        try:  # constrói e exibe a notificação do aviso de timer iniciado
+            notification.notify(
+                title="INICIANDO TIMER",
+                message="TIMER INICIADO",
+                timeout=10,
+            )
+        except Exception as e:
+            # print(f'Erro notificação {e}' )
+            pass
         t.start()
         #print("Passou thread")
        
@@ -102,6 +110,7 @@ class Application:
         time.sleep(self.time*60)
         if self.email != "": # corrigir tratamento de e-mail
             try:
+                print("Entrando envio de e-mail")
                 self.mail()
             except:
                 #print("ERRO EMAIL")
@@ -126,7 +135,7 @@ class Application:
         #print("Entrando na função mail")
          # Dados de autenticação
         self.username = "felipe@brasildosparafusos.com.br"
-        self.password = "Flg@1999"
+        self.password = "Brasil@01"
         self.emailDestino = self.email.get()
         self.conteudo = self.lembrar.get()
         # Criação do objeto MIMEText
@@ -144,11 +153,11 @@ class Application:
             server.login(self.username, self.password)
             server.sendmail(self.username, self.emailDestino, msg.as_string())
 
-        #print("E-mail enviado com sucesso!")
+        print("E-mail enviado com sucesso!")
 
     
 root = Tk()
-root.iconbitmap('lembret.ico')
+#root.iconbitmap('lembret.ico')
 
 Application(root)
 root.mainloop()
