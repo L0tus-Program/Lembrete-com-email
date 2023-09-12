@@ -59,7 +59,7 @@ class Application:
         self.email.pack(side=LEFT)
 
         # inserção timer
-        self.clockLabel = Label(self.quartoContainer, text="Quanto tempo para o lembrete ? ", font=self.fontePadrao)
+        self.clockLabel = Label(self.quartoContainer, text="Quanto tempo para o lembrete ? (minutos)", font=self.fontePadrao)
         self.clockLabel.pack(side=LEFT)
         self.clock = Entry(self.quartoContainer)
         self.clock["width"] = 30
@@ -107,8 +107,9 @@ class Application:
         self.time = self.clock.get()
         self.time = float(self.time)
         
-        time.sleep(self.time*60)
-        if self.email != "": # corrigir tratamento de e-mail
+        time.sleep(self.time*60) # converte segundos em minutos multiplicando por 60
+        if self.email.get() != "": 
+            print(self.email.get())
             try:
                 print("Entrando envio de e-mail")
                 self.mail()
@@ -134,8 +135,8 @@ class Application:
     def mail(self):
         #print("Entrando na função mail")
          # Dados de autenticação
-        self.username = "felipe@brasildosparafusos.com.br"
-        self.password = "Brasil@01"
+        self.username = "felipe.gomes@messeminvestimentos.com.br"
+        self.password = "Messem@2023"
         self.emailDestino = self.email.get()
         self.conteudo = self.lembrar.get()
         # Criação do objeto MIMEText
@@ -148,7 +149,7 @@ class Application:
         msg.add_header('Content-Type', 'text/plain; charset=UTF-8')
 
         # Enviando o e-mail
-        with smtplib.SMTP("email-ssl.com.br", 587) as server:
+        with smtplib.SMTP("messeminvestimentos.com.br", 587) as server:
             server.starttls()
             server.login(self.username, self.password)
             server.sendmail(self.username, self.emailDestino, msg.as_string())
