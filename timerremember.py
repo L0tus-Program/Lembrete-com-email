@@ -2,6 +2,7 @@ import time
 import threading
 import smtplib
 from email.mime.text import MIMEText
+
 from plyer import notification
 
 from tkinter import *
@@ -135,8 +136,8 @@ class Application:
     def mail(self):
         #print("Entrando na função mail")
          # Dados de autenticação
-        self.username = "felipe.gomes@messeminvestimentos.com.br"
-        self.password = "Messem@2023"
+        self.username = "seu email"
+        self.password = "seu - email"
         self.emailDestino = self.email.get()
         self.conteudo = self.lembrar.get()
         # Criação do objeto MIMEText
@@ -149,7 +150,7 @@ class Application:
         msg.add_header('Content-Type', 'text/plain; charset=UTF-8')
 
         # Enviando o e-mail
-        with smtplib.SMTP("messeminvestimentos.com.br", 587) as server:
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
             server.starttls()
             server.login(self.username, self.password)
             server.sendmail(self.username, self.emailDestino, msg.as_string())
